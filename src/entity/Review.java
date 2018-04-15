@@ -1,6 +1,9 @@
 package entity;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,9 +36,6 @@ public class Review {
 
 	private int rating;
 	private String comment;
-
-	@ManyToOne
-	private Book book;
 	
 	@ManyToOne
 	private User postee;
@@ -44,9 +44,8 @@ public class Review {
 		
 	}
 	
-	public Review(Book book, int rating, String comment, User postee){
+	public Review(User postee, String comment, int rating){
 		super();
-		this.book = book;
 		this.rating = rating;
 		this.comment = comment;
 		this.postee = postee;
@@ -56,14 +55,6 @@ public class Review {
 	/*
 	* 	GETers and SETers beyond this point
 	*/
-
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
 
 	@XmlElement
 	public int getId(){

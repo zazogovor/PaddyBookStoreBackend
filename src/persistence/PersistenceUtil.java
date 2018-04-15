@@ -18,7 +18,7 @@ public class PersistenceUtil implements Serializable {
 
 	
 	protected static EntityManagerFactory emf = 
-			Persistence.createEntityManagerFactory("dt354Paddy");
+			Persistence.createEntityManagerFactory("dt354rel");
 	
 	
 	public static void persist(Object entity) {
@@ -83,6 +83,20 @@ public class PersistenceUtil implements Serializable {
 		if (users.size() == 0)
 			return null;
 		else 
+			return users.get(0);
+	}
+
+	public static User findUserById(int id){
+
+		EntityManager em = emf.createEntityManager();
+		List<User> users = (List<User>)
+				em.createNamedQuery("User.findById").
+						setParameter("id", id).getResultList();
+		em.close();
+
+		if (users.size() == 0)
+			return null;
+		else
 			return users.get(0);
 	}
 	

@@ -41,8 +41,8 @@ public class UserDAO {
 		System.out.println("User "+ username + " successfully removed from database.");
 	}
 	
-	public static void createUser(String username, String email, String password){
-		User user = new User(username, email, password);
+	public static void createUser(String username, String email, String password, String type){
+		User user = new User(username, email, password, type);
 		PersistenceUtil.persist(user);
 		System.out.println("User registered");
 	}

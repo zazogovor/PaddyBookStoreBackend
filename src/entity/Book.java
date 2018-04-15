@@ -1,5 +1,8 @@
 package entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +24,23 @@ public class Book {
 
     private String title;
     private String author;
-    private int rating;
-    private String image;
+    private double price;
     private int quantity;
+    private int rating = 0;
+    private String image;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviews = new ArrayList<Review>();
 
 
-    public Book(String ISBN, String title, String author, int rating, String image, List<Review> reviews, int quantity) {
+    public Book(String title, String author, String ISBN, double price, int quantity, String image) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
-        this.rating = rating;
-        this.image = image;
-        this.reviews = reviews;
+        this.price = price;
         this.quantity = quantity;
+        this.image = image;
     }
 
     public Book() {
@@ -108,5 +112,13 @@ public class Book {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

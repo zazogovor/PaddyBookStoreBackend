@@ -24,10 +24,11 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 
 @NamedQueries( {
-	@NamedQuery(name = "User.findAll", query = "select o from User o"),
-	@NamedQuery(name = "User.findByUsername", query = "select o from User o where o.username=:username"),
-	@NamedQuery(name = "User.edit", query = "select o from User o"),
-	@NamedQuery(name = "User.login", query = "SELECT o FROM User o WHERE o.username = :username AND o.password = :password")
+		@NamedQuery(name = "User.findAll", query = "select o from User o"),
+		@NamedQuery(name = "User.findById", query = "select o from User o where o.id=:id"),
+		@NamedQuery(name = "User.findByUsername", query = "select o from User o where o.username=:username"),
+		@NamedQuery(name = "User.edit", query = "select o from User o"),
+		@NamedQuery(name = "User.login", query = "SELECT o FROM User o WHERE o.username = :username AND o.password = :password")
 })
 
 @Entity
@@ -45,29 +46,20 @@ public class User
 	private String email;
 	private String type;
 	
-	
-	//JOIN table containing all carpools associated with User (whether he is a driver or a passenger)
-//	@ManyToMany
-//	@LazyCollection(LazyCollectionOption.FALSE)
-//	private List<Carpool> carpools = new ArrayList<Carpool>();
-	
 	public User(){
 		
 	}
 	
-	public User(String username,String email, String password) {
+	public User(String username,String email, String password, String type) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.type = type;
 	}
 
-
-
-	
 	/*
 	* 	GETers and SETers beyond this point
 	*/
-	@XmlElement
 	public int getId() {
 		return this.id;
 	}
@@ -76,7 +68,6 @@ public class User
 		this.id = id;
 	}
 
-	@XmlElement
 	public String getUsername() {
 		return this.username;
 	}
@@ -85,7 +76,6 @@ public class User
 		this.username = username;
 	}
 
-	@XmlElement
 	public String getPassword() {
 		return this.password;
 	}
@@ -94,7 +84,6 @@ public class User
 		this.password = password;
 	}
 
-	@XmlElement
 	public String getEmail(){
 		return this.email;
 	}
@@ -103,18 +92,11 @@ public class User
 		this.email = email;
 	}
 
-//	@XmlElement
-//	public List<Carpool> getCarpools(){
-//		return this.carpools;
-//	}
-//
-//	public void addCarpool(Carpool c){
-//		this.carpools.add(c);
-//	}
-//
-//	public void setCarpools(List<Carpool> c){
-//		this.carpools = c;
-//	}
-	
-	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

@@ -31,8 +31,9 @@ public class UserWebService {
     @Produces(MediaType.TEXT_HTML)
     public String newUser(@FormParam("username") String username,
                           @FormParam("email") String email,
-                          @FormParam("password") String password) {
-        UserDAO.createUser(username, email, password);
+                          @FormParam("password") String password,
+                            @FormParam("type") String type){
+        UserDAO.createUser(username, email, password, type);
         return "1";
     }
 
@@ -47,8 +48,10 @@ public class UserWebService {
         Boolean success = UserDAO.loginUser(username, password);
 
         if(success == true){
-            System.out.println("User LOGIN successfull...");
-            return "1";
+            User u = UserDAO.viewUser(username);
+            Gson gson = new GsonBuilder().create();
+            String json = gson.toJson(u);
+            return json;
         }
         else{
             System.out.println("User LOGIN failed...");

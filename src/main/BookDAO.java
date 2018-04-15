@@ -20,14 +20,8 @@ public class BookDAO {
         return books;
     }
 
-    public static void deleteBook(int id){
-        Book book = PersistenceUtil.findBookById(id);
-        PersistenceUtil.remove(book);
-    }
-
-    public static void createBook(String ISBN, String title, String author, int rating, String image, List<Review> reviews, int quantity){
-        Book book = new Book(ISBN, title, author, rating, image, reviews, quantity);
+    public static void createBook(String title, String author, String ISBN, double price, int stock, String image){
+        Book book = new Book(title, author, ISBN, price, stock,  image);
         PersistenceUtil.persist(book);
-        System.out.println("Book created");
     }
 }
