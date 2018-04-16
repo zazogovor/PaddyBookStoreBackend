@@ -31,17 +31,30 @@ public class BookWebService{
     @Path("/add")
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public String newReview(@FormParam("title") String title,
+    public String newBook(@FormParam("title") String title,
                             @FormParam("author") String author,
                             @FormParam("ISBN") String ISBN,
                             @FormParam("price") String price,
                             @FormParam("stock") String stock,
                             @FormParam("image") String image,
                             @Context HttpServletResponse response){
-        double price_double = Double.parseDouble(price);
-        int stock_int = Integer.parseInt(stock);
+        BookDAO.createBook(title, author, ISBN, price, stock, image);
+        return "1";
+    }
 
-        BookDAO.createBook(title, author, ISBN, price_double, stock_int, image);
+    @POST
+    @Path("/edit")
+    @Produces(MediaType.TEXT_HTML)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public String editBook(@FormParam("id") String id,
+                           @FormParam("title") String title,
+                            @FormParam("author") String author,
+                            @FormParam("ISBN") String ISBN,
+                            @FormParam("price") String price,
+                            @FormParam("stock") String stock,
+                            @Context HttpServletResponse response){
+        BookDAO.editBook(id, title, author, ISBN, price, stock);
+
         return "1";
     }
 }

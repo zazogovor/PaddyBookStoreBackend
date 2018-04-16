@@ -58,17 +58,4 @@ public class UserWebService {
             return "0";
         }
     }
-
-    //Delete USER
-    @DELETE
-    @Path("/delete/")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.TEXT_HTML)
-    public String removeUser(@FormParam("username") String username,
-                               @Context HttpServletResponse response){
-       UserDAO.deleteUser(username);
-       return "1";
-    }
-
-
 }
